@@ -8,16 +8,14 @@ var PORT = process.env.PORT || 3001;
 server.use('/api/v1', router);
 
 if (process.env.NODE_ENV === 'production') {
-  server.use(express.static(path.join(__dirname, 'build')));
-  server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + 'public/index.html'));
-  });
+  server.use(express.static('build'));
 } else {
-  server.use(express.static(path.join(__dirname, 'public/')));
-  server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + 'public/index.html'));
-  });
+  server.use(express.static('public/index.html'));
 }
+
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + 'public/index.html'));
+});
 
 server.listen(PORT, function() {
   console.log(`API Server now listening on PORT ${PORT}`);
