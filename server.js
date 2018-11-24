@@ -8,14 +8,14 @@ var PORT = process.env.PORT || 3001;
 server.use('/api/v1', router);
 
 if (process.env.NODE_ENV === 'production') {
-  server.use(express.static('build'));
+  server.use(express.static(path.join(__dirname, 'build')));
   server.get('*', (req, res) => {
     res.sendFile('build/index.html');
   });
 } else {
   server.use(express.static('public'));
   server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + 'public/index.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
   });
 }
 
